@@ -12,7 +12,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def getwelcomeMsg():
-    engine = create_engine('snowflake://{user}:{password}@{account}/'.format(user='Aniruddha.sen@xerox.com', password='Candy2019g@od', account='xerox.east-us-2.azure', ) )
+    jdbc:snowflake://xy12345.snowflakecomputing.com/?user=peter&warehouse=mywh&db=mydb&schema=public
+    engine = create_engine('jdbc:snowflake://xerox.snowflakecomputing.com/?user=aniruddha.sen@xerox.com&warehouse=TESTBILLINGWH&db=test&schema=test')
+    #engine = create_engine('snowflake://{user}:{password}@{account}/'.format(user='Aniruddha.sen@xerox.com', password='Candy2019g@od', account='xerox.east-us-2.azure', ) )
     try:
         connection = engine.connect()
         results = connection.execute('select current_version()').fetchone()
