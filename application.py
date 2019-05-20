@@ -5,12 +5,21 @@ import datetime
 import time
 import calendar
 from flask import Flask, request,  jsonify
+from sqlalchemy import create_engine
 
 
 app = Flask(__name__)
 
 @app.route('/')
 def getwelcomeMsg():
+    engine = create_engine('snowflake://{user}:{password}@{account}/'.format(user='Aniruddha.sen@xerox.com', password='Candy2019g@od', account='xerox.east-us-2.azure', ) )
+    try:
+        connection = engine.connect()
+        results = connection.execute('select current_version()').fetchone()
+        print(results[0])
+    finally:
+        connection.close()
+        engine.dispose()
     return 'Asset API with /'
 
 
