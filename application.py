@@ -12,16 +12,24 @@ app = Flask(__name__)
 
 @app.route('/')
 def getwelcomeMsg():
-    #jdbc:ssennowflake://xy12345.snowflakecomputing.com/?user=peter&warehouse=mywh&db=mydb&schema=public
-    #engine = create_engine('jdbc:snowflake://xerox.snowflakecomputing.com/?user=aniruddha.sen@xerox.com&warehouse=TESTBILLINGWH&db=test&schema=test')
-    engine = create_engine('jdbc:snowflake://{user}:{password}@{account}/'.format(user='Aniruddha.sen@xerox.com', password='Candy2019g@od', account='xerox.east-us-2.azure', ) )
+    ctx = snowflake.connector.connect(
+    user='aniruddha.sen',
+    password='Candy2019g@od',
+    account='xerox',
+	region='east-us-2.azure',
+	warehouse='TESTBILLINGWH',
+	database='test',
+	schema='test',
+	role='SYSADMIN'
+    )
+    cs = ctx.cursor()
     try:
-        connection = engine.connect()
-        results = connection.execute('select current_version()').fetchone()
-        print(results[0])
+        cs.execute("SELECT current_version()")
+        one_row = cs.fetchone()
+        print(one_row[0])
     finally:
-        connection.close()
-        engine.dispose()
+        cs.close()
+        ctx.close()
     return 'Asset API with /'
 
 
