@@ -14,14 +14,14 @@ app = Flask(__name__)
 @app.route('/')
 def getwelcomeMsg():
     ctx = snowflake.connector.connect(
-    user='aniruddha.sen',
-    password='Candy2019g@od',
+    user='integration_admin',
+    password='Rochester#2019',
     account='xerox',
 	region='east-us-2.azure',
 	warehouse='TESTBILLINGWH',
 	database='test',
-	schema='test',
-	role='SYSADMIN'
+	schema='test'
+	
     )
     cs = ctx.cursor()
     try:
