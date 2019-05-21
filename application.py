@@ -6,6 +6,7 @@ import time
 import calendar
 from flask import Flask, request,  jsonify
 from sqlalchemy import create_engine
+import snowflake.connector
 
 
 app = Flask(__name__)
